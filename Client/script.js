@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Change this when deployed
-  const BASE_URL = 'http://127.0.0.1:5000';
+  const BASE_URL = 'https://banglore-home-price-prediction-jkuv.onrender.com';
 
   const form = document.getElementById('predictionForm');
   const btn = document.getElementById('predictButton');
