@@ -5,13 +5,7 @@ import os
 
 app = Flask(__name__)
 CORS(app)
-
-@app.before_request
-def init_once():
-    # Remove this handler so it only runs once per worker
-    app.before_request_funcs[None].remove(init_once)
-    utils.load_saved_artifacts()
-
+utils.load_saved_artifacts()
 @app.route("/get_location_names")
 def get_location_names():
     return jsonify({"locations": utils.get_location_names()})
@@ -20,7 +14,7 @@ def get_location_names():
 def predict_home_price():
     data = request.get_json(force=True)
     total_sqft = float(data['total_sqft'])
-    location = data['location']  # expects exact column key like "location_hsr layout"
+    location = data['location']
     bath = int(data['bath'])
     bhk = int(data['bhk'])
     return jsonify({'estimated_price': float(utils.get_estimated_price(location, total_sqft, bath, bhk))})
