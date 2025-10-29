@@ -6,11 +6,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-@app.before_first_request
-def _load_artifacts():
-    utils.load_saved_artifacts()
-
-
+utils.load_saved_artifacts()
 @app.route("/get_location_names")
 def get_location_names():
     return jsonify({"locations": utils.get_location_names()})
