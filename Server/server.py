@@ -6,7 +6,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-utils.load_saved_artifacts()
+@app.before_request
+def init_once():
+    # Remove this handler so it only runs once per worker
+    app.before_request_funcs[None].remove(init_once)
+    utils.load_saved_artifacts()
+
 @app.route("/get_location_names")
 def get_location_names():
     return jsonify({"locations": utils.get_location_names()})
